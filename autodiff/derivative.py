@@ -6,6 +6,8 @@ Implements a jacobian gradient calculator using numpy.
 import numpy as np
 import autodiff
 import autodiff.tensor
+from functools import reduce
+from operator import mul
 
 
 def derivative(jacobian, operation, i, graph=None):
@@ -97,7 +99,8 @@ def derivative(jacobian, operation, i, graph=None):
         shape1 = operation.args[0].shape
         shape2 = operation.kwargs["shape"]
         shape3 = jacobian.shape
-        shape2 += shape3[len(shape1):]
+        if reduce(mul, shape2, 1) < reduce(mul, shape3, 1):
+            shape2 += shape3[len(shape1):]
         return jacobian.reshape(shape2)
 
     print("Error: operation {0} is not differentiable.".format(operation.name))

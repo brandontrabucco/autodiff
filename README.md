@@ -1,2 +1,2 @@
 # autodiff
-A simple package for automatically calculating high order jacobian tensors.
+A minimalist package for automatically calculating high order jacobian tensors.
